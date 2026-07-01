@@ -20,7 +20,8 @@ INSERT INTO router.model_router_api_keys (
     key_hash,
     key_suffix,
     created_by,
-    spend_cap_usd_micros
+    spend_cap_usd_micros,
+    spent_usd_micros
 )
 VALUES (
     $1::uuid,
@@ -30,7 +31,8 @@ VALUES (
     $5::varchar,
     $6::varchar,
     $7,
-    $8
+    $8,
+    $9::bigint
 )
 RETURNING id, installation_id, external_id, name, key_prefix, key_hash, key_suffix, last_used_at, created_at, deleted_at, created_by, spend_cap_usd_micros, spent_usd_micros
 `
@@ -44,6 +46,7 @@ type CreateModelRouterAPIKeyParams struct {
 	KeySuffix         string
 	CreatedBy         *string
 	SpendCapUsdMicros *int64
+	SpentUsdMicros    int64
 }
 
 // CreateModelRouterAPIKey
@@ -56,7 +59,8 @@ type CreateModelRouterAPIKeyParams struct {
 //	    key_hash,
 //	    key_suffix,
 //	    created_by,
-//	    spend_cap_usd_micros
+//	    spend_cap_usd_micros,
+//	    spent_usd_micros
 //	)
 //	VALUES (
 //	    $1::uuid,
@@ -66,7 +70,8 @@ type CreateModelRouterAPIKeyParams struct {
 //	    $5::varchar,
 //	    $6::varchar,
 //	    $7,
-//	    $8
+//	    $8,
+//	    $9::bigint
 //	)
 //	RETURNING id, installation_id, external_id, name, key_prefix, key_hash, key_suffix, last_used_at, created_at, deleted_at, created_by, spend_cap_usd_micros, spent_usd_micros
 func (q *Queries) CreateModelRouterAPIKey(ctx context.Context, arg CreateModelRouterAPIKeyParams) (RouterModelRouterAPIKey, error) {
@@ -79,6 +84,7 @@ func (q *Queries) CreateModelRouterAPIKey(ctx context.Context, arg CreateModelRo
 		arg.KeySuffix,
 		arg.CreatedBy,
 		arg.SpendCapUsdMicros,
+		arg.SpentUsdMicros,
 	)
 	var i RouterModelRouterAPIKey
 	err := row.Scan(

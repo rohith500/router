@@ -55,6 +55,7 @@ func toAuthAPIKey(row sqlc.RouterModelRouterAPIKey) *auth.APIKey {
 		DeletedAt:         timestampPtr(row.DeletedAt),
 		CreatedBy:         row.CreatedBy,
 		SpendCapUsdMicros: row.SpendCapUsdMicros,
+		SpentUsdMicros:    row.SpentUsdMicros,
 	}
 }
 

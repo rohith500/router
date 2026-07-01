@@ -216,6 +216,7 @@ func (r *apiKeyRepo) Create(ctx context.Context, params auth.CreateAPIKeyParams)
 		KeySuffix:         params.KeySuffix,
 		CreatedBy:         params.CreatedBy,
 		SpendCapUsdMicros: params.SpendCapUsdMicros,
+		SpentUsdMicros:    params.SpentUsdMicros,
 	})
 	if err != nil {
 		return nil, err
