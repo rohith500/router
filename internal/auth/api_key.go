@@ -18,6 +18,7 @@ type APIKey struct {
 	DeletedAt         *time.Time
 	CreatedBy         *string
 	SpendCapUsdMicros *int64
+	SpentUsdMicros    int64
 }
 
 type CreateAPIKeyParams struct {
@@ -29,6 +30,7 @@ type CreateAPIKeyParams struct {
 	KeySuffix         string
 	CreatedBy         *string
 	SpendCapUsdMicros *int64
+	SpentUsdMicros    int64
 }
 
 type APIKeyRepository interface {
